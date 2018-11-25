@@ -26,7 +26,7 @@
 			
 		<?php }
 		
-		function displayForm($missingFields,$checkErrors){
+		function displayForm($missingFields,$raised){
 			?>
 			
 			<div class = "container">
@@ -42,15 +42,22 @@
 				?>
 				
 					<label for = "firstName">First Name<span <?php validateField("firstName",$missingFields);?>>*</span></label>
+					<span class = "loud"><?php validateError("firstName",$raised);?></span>
+					
 					<input type = "text" id = "firstName" name = "firstName" class = "modify" value = "<?php setValue("firstName");?>">
 					
 					<label for = "lastName">Last Name<span <?php validateField("lastName",$missingFields);?>>*</span></label>
+					<span class = "loud"><?php validateError("lastName",$raised);?></span>
+					
 					<input type = "text" id = "lastName" name = "lastName" class = "modify" value = "<?php setValue("lastName");?>">
 					
+					
 					<label for = "email">Email<span <?php validateField("email",$missingFields);?>>*</span></label>
+					<span class = "loud"><?php validateError("email",$raised);?></span>
 					<input type = "text" id = "email" name = "email" class = "modify" value = "<?php setValue("email")?>">
 					
 					<label for = "mobileNumber">Mobile Number<span <?php validateField("mobileNumber",$missingFields);?>>*</span></label>
+					<span class = "loud"><?php validateError("mobileNumber",$raised);?></span>
 					<input type = "text" id = "mobileNumber" name = "mobileNumber" class = "modify" value = "<?php setValue("mobileNumber")?>">
 					
 					
@@ -74,16 +81,47 @@
 		function processForm(){
 			$requiredFields = array("firstName","lastName","email","mobileNumber");
 			
+			$raised = array();
+			
 			$missingFields = array();
 			
 			foreach($requiredFields as $requiredField){
 				if(!isset($_POST[$requiredField]) or !$_POST[$requiredField]){
 					$missingFields[] = $requiredField;
 				}
+					
+				
 			}
 			
-			if($missingFields){
-				displayForm($missingFields);
+						if(!empty($_POST["firstName"])){
+							if(!preg_match("/[a-zA-Z]/",$_POST["firstName"])){
+								$raised[] = "firstName";
+							}
+						}
+					 
+			
+						if(!empty($_POST["lastName"])){
+							if(!preg_match("/[a-zA-Z]/",$_POST["lastName"])){
+								$raised[] = "lastName";
+							}	
+						}
+			
+						if(!empty($_POST["email"])){
+							if(!preg_match("/[a-zA-Z0-9.-_]+@[a-zA-Z]+\.+[a-z]/",$_POST["email"])){
+								$raised[] = "email";
+							}
+						}
+			
+						if(!empty($_POST["mobileNumber"])){
+							if(!preg_match("/[0-9]{10}/",$_POST["mobileNumber"])){
+								$raised[] = "mobileNumber";
+							}
+						}
+							
+					
+			
+			if($missingFields or $raised){
+				displayForm($missingFields,$raised);
 			}else{
 				sayThanks();
 			}
@@ -120,12 +158,31 @@
 			}
 		}
 		
-		function verifyNumber($fieldName){
-			$number = $_POST[$fieldName];
-			
-			if(!preg_match("/[0-9]{10}/",$number)){
-				
+		
+		
+		
+		function validateError($fieldName,$raised){
+				if(in_array($fieldName,$raised)){
+					echo produceError($fieldName);
+				}
 			}
+			
+		function produceError($fieldName){
+			
+			switch($fieldName){
+				case "firstName":
+					return "Not look like a name";
+					
+				case "lastName":
+					return "Not look like a surname";
+					
+				case "email":
+					return "Not a valid email Id";
+					
+				case "mobileNumber":
+					return "Not a valid mobileNumber";
+			}	
+			
 		}
 		
 		
@@ -140,9 +197,13 @@
 			document.getElementById("male").checked = "";
 			document.getElementById("female").checked = "";
 			document.getElementById("special").checked = "";
+		
+			
 			}
 		
 		document.getElementById("resetButton").addEventListener("click",emptyData);
+		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("loud"); var i; for(i=0;i<el.length;i++){ el[i].style.display = "none"; } });
+		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("error"); var i = 0; for(i=0;el.length;i++){ el[i].style.color = "purple"; } });
 	</script>
 	
 </body>

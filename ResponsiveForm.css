@@ -79,6 +79,16 @@ p{
   color:blueviolet;
 }
 
+.loud{
+  display: inline-block;
+  color: red;
+  font-family: arial;
+  background-color: orange;
+  padding: 0px 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 
 @media screen and (max-width:600px){
   .container{
