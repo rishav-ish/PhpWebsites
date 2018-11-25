@@ -1,0 +1,101 @@
+.sayThanks{
+  min-width: 50%;
+  border: 1px solid black;
+  margin:50px auto;
+  padding: 10px;
+  font-size: 22px;
+  font-family: cursive;
+  color: green;
+  box-shadow: 0px 0px 5px green;
+}
+
+h2{
+  text-align: center;
+  font-family: cursive;
+  margin-top: 0px;
+  padding:20px 0px;
+  color: white;
+  background-color: blueviolet;
+  margin-bottom:0px;
+  border:none;
+}
+
+.container{
+  margin: 5% auto;
+  max-width: 80%;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0px 0px 8px blueviolet;
+}
+
+
+label{
+ 
+  display: inline-block;
+  font-family:arial;
+  font-size:22px;
+  margin:5px 10px;
+  padding: 4px;
+  color: purple;
+}
+
+p{
+  padding-left: 10px;
+  padding-bottom: 5px;
+  margin-top: 0px;
+  font-size: 20px;
+  background-color: blueviolet;
+  color:white;
+ 
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.modify{
+  display: block;
+  width: 95%;
+  margin: auto;
+  padding: 5px;
+  font-size: 24px;
+  font-family: arial;
+  border: none;
+  border-bottom: 1px solid purple;
+  margin-bottom: 8px;
+}
+
+.button{
+  display: inline-block;
+  margin:10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 22px;
+  background-color: blueviolet;
+  color: white;
+}
+
+.button:hover{
+  background-color: white;
+  color:blueviolet;
+}
+
+
+@media screen and (max-width:600px){
+  .container{
+    max-width: 100%;
+    margin: 0px;
+    box-shadow: none;
+  }
+  
+  label{
+    margin:5px;
+  }
+  
+  p{
+    font-size: 16px;
+  }
+  
+  .modify{
+	  font-size:20px;
+  }
+}
