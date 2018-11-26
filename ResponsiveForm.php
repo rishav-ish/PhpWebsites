@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Responsive Form</title>
+	<title>Slam Book</title>
 	<meta name = "viewport" content = "width=device-width,initial-scale=1.0">
 	<link rel = "stylesheet" type = "text/css" href = "ResponsiveForm.css">
 	<style>
@@ -26,14 +26,16 @@
 			
 		<?php }
 		
-		function displayForm($missingFields,$raised){
+		function displayForm1($missingFields,$raised){
 			?>
 			
 			<div class = "container">
-				<h2>Registration Form</h2>
+				<h2>Slam Book</h2>
 				
 				<form method = "post" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 				
+					<input type = "hidden" name = "form1" value = "2">
+					
 				<?php if($missingFields){
 					echo '<p>Please fill the field marked with asterisk *</p>';
 				}else{
@@ -71,7 +73,7 @@
 					<label for = "special">Special</label>
 					<input type = "radio" value = "special" name = "gender" id = "special" <?php setChecked("gender","special")?>>
 					<br>
-					<input type = "submit" name = "submitButton" value = "submit" class = "button" id = "submitButton">
+					<input type = "submit" name = "submitButton" value = "Next" class = "button" id = "submitButton">
 					<input type = "button" name = "resetButton" value = "reset" class = "button" id = "resetButton">
 				</form>
 			</div>
@@ -79,7 +81,7 @@
 		}
 		
 		function processForm(){
-			$requiredFields = array("firstName","lastName","email","mobileNumber");
+			$requiredFields = array("firstName","lastName","email","mobileNumber","nickName","singerName","actressName","actorName","favoriteMovie",);
 			
 			$raised = array();
 			
@@ -94,26 +96,26 @@
 			}
 			
 						if(!empty($_POST["firstName"])){
-							if(!preg_match("/[a-zA-Z]/",$_POST["firstName"])){
+							if(!preg_match("/^[a-zA-Z ]{1,}$/",$_POST["firstName"])){
 								$raised[] = "firstName";
 							}
 						}
 					 
 			
 						if(!empty($_POST["lastName"])){
-							if(!preg_match("/[a-zA-Z]/",$_POST["lastName"])){
+							if(!preg_match("/^[a-zA-Z]{1,}$/",$_POST["lastName"])){
 								$raised[] = "lastName";
 							}	
 						}
 			
 						if(!empty($_POST["email"])){
-							if(!preg_match("/[a-zA-Z0-9.-_]+@[a-zA-Z]+\.+[a-z]/",$_POST["email"])){
+							if(!preg_match("/[a-zA-Z0-9.-_]+@[a-zA-Z]+\.+[a-z]{2,5}$/",$_POST["email"])){
 								$raised[] = "email";
 							}
 						}
 			
 						if(!empty($_POST["mobileNumber"])){
-							if(!preg_match("/[0-9]{10}/",$_POST["mobileNumber"])){
+							if(!preg_match("/^[0-9]{10}$/",$_POST["mobileNumber"])){
 								$raised[] = "mobileNumber";
 							}
 						}
@@ -121,7 +123,7 @@
 					
 			
 			if($missingFields or $raised){
-				displayForm($missingFields,$raised);
+				displayForm1($missingFields,$raised);
 			}else{
 				sayThanks();
 			}
@@ -132,11 +134,7 @@
 			return htmlspecialchars($test);
 		}
 		
-		if($_SERVER["REQUEST_METHOD"]=="POST"){
-			processForm();
-		}else{
-			displayForm();
-		}
+		
 		
 		function setValue($fieldName){
 			if(isset($_POST[$fieldName])){
@@ -184,6 +182,69 @@
 			}	
 			
 		}
+		
+		function displayForm2($missingFields,$raised){
+			?>
+		<div class = "container">
+				<h2>Slam Book</h2>
+				
+				<form method = "post" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				
+				<?php if($missingFields){
+					echo '<p>Please fill the field marked with asterisk *</p>';
+				}else{
+					echo "<p>Let me know what you like...</p>";
+				}
+				?>
+				
+					<label for = "nickName">Nick Name</label>
+					<span class = "loud"><?php validateError("nickName",$raised);?></span>
+					
+					<input type = "text" id = "nickName" name = "nickName" class = "modify" value = "<?php setValue("nickName");?>">
+					
+					<label for = "singerName">Favorite Singer</label>
+					<span class = "loud"><?php validateError("singerName",$raised);?></span>
+					
+					<input type = "singerName" id = "singerName" name = "singerName" class = "modify" value = "<?php setValue("singerName");?>">
+					
+					
+					<label for = "actressName">Favorite Actress</label>
+					<span class = "loud"><?php validateError("actressName",$raised);?></span>
+					<input type = "text" id = "actressName" name = "actressName" class = "modify" value = "<?php setValue("actressName")?>">
+					
+					<label for = "actorName">Favorite Actor</label>
+					<span class = "loud"><?php validateError("actorName",$raised);?></span>
+					<input type = "text" id = "actorName" name = "actorName" class = "modify" value = "<?php setValue("actorName")?>">
+					
+					
+					
+					<label for = "favoriteSong">Favorite Song</label>
+					<input type = "text" value = "<?php setValue("favoriteSong")?>" name = "favoriteSong" class = "modify"  id = "favoriteSong">
+					
+					<label for = "favoriteMovie">Favorite Movie</label>
+					<input type = "text" value = "<?php setValue("favoriteMovie");?>" name= "favoriteMovie" class = "modify"  id = "favoriteMovie">
+					
+					<label for = "TVshow">Favorite TV show</label>
+					<input type = "text" value = "<?php setValue("TVshow"); ?>" name = "TVshow" id = "TVshow" class = "modify">
+					<br>
+					<input type = "button" name = "prevButton" value = "prev" class = "button" id = "prevButton">
+					<input type = "reset" name = "resetButton" value = "reset" class = "button" id = "resetButton">
+					
+					<input type = "button" name = "nextButton" value = "next" class = "button" id = "nextButton" style = "float:right;clear:both;">
+				</form>
+			</div>
+			<?php
+		}
+		
+		if($_SERVER["REQUEST_METHOD"]=="POST"){
+			processForm();
+			
+		}else{
+			displayForm1();
+		}
+		
+		
+		
 		
 		
 	?>
