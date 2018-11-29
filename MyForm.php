@@ -1,88 +1,79 @@
-<!--My Form -->
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Form</title>
+	<title>Membership Form</title>
 	<meta name = "viewport" content = "width=device-width,initial-scale=1.0">
-	
 </head>
 
 <body>
 	<?php
-	
-		$firstName = $lastName = $email = $mobileNumber = "";
-	
+		
 		if(isset($_POST["submitButton"])){
 			processForm();
-			displayForm();
 		}else{
 			displayForm();
 		}
-	
 		
+		function setValue($fieldName){
+			if(isset($_POST[$fieldName])){
+				echo $_POST[$fieldName];
+			}
+		}
 		
-		function displayForm(){
+		function validateField($fieldName,$missingFields){
+			if(in_array($fieldName,$missingFields)){
+				echo 'class = "error"';
+			}
+		}
 		
-		    global $firstName,$lastName,$email,$mobileNumber;?>
-			
-			<div class = "container">
-			
-			<form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "post">
-				<label for = "firstName">First Name:</label>
-				<input type = "text" id = "firstName" name = "firstName">
-				<?php echo $firstName;?>
-				<br>
-				
-				<label for = "lastName">Last Name:</label>
-				<input type = "text" id = "lastName" name = "lastName">
-				<?php echo $lastName; ?>
-				<br>
-				
-				<label for = "email">Email:</label>
-				<input type = "text" id = "email" name = "email">
-				<?php echo $email; ?>
-				<br>
-				
-				<label for = "mobileNumber">Mobile Number:</label>
-				<input type = "text" id = "mobileNumber" name = "mobileNumber">
-				<?php echo $mobileNumber;?>
-				<br>
-				
-				<input type = "submit" value = "submit" name = "submitButton">
-				<input type = "reset" value = "reset" name = "resetButton">
-				
-			</form>
-		</div>
-		<?php	
+		function setChecked($fieldName,$fieldValue){
+			if(isset($_POST[$fieldName]) and $_POST[$fieldName] == $fieldValue){
+				echo 'checked = "checked"';
+			}
+		}
+		
+		function setSelected($fieldName,$fieldValue){
+			if(isset($_POST[$fieldName]) and $_POST[$fieldName]==$fieldValue){
+				echo 'selected = "selected"';
+			} 
 		}
 		
 		function processForm(){
-			if(empty($_POST["firstName"])){
-				global $firstName;
-				
-			  	$firstName = "First Name is Required";
-			}else{
-				$firstName = test_input($_POST["firstName"]);
-			}
-			if(empty($_POST["lastName"])){
-					global $lastName;
-					$lastName = "Last Name is Required";
-			}
-			if(empty($_POST["email"])){
-				global $email;
-			   	$email = "Email is Required";
+			$requiredFields = array("firstName","lastName","password1","password2","gender");
+			$missingFields = array();
+			
+			foreach($requiredFields as $requiredField){
+				if(!isset($_POST[$requiredField]) or !$_POST[$requiredField]){
+					$missingFields[] = $requiredField;
+				}
 			}
 			
-			if(empty($_POST["mobileNumber"])){
-				global $mobileNumber;
-			   	$mobileNumber = "Mobile Number is required";
+			if($missingFields){
+				displayForm($missingFields);
+			}else{
+				displayThanks();
 			}
 		}
 		
-		function test_input($test){
-			return htmlspecialchars($test);
-		}
 		
-		?>
-</body>
-</html>
+		function displayForm($missingFields){
+			?>
+			
+			<h1>Membership form</h1>
+			<?php if($missingFields){?>
+				<p class = "error">There were some problems with the form you submitted.Please complete the fields highlighted below and click send 
+				Details to resend the form.</p>
+				
+			<?php } else {?>
+					<p>Thanks for choosing to join The Widget Club. To register, please fill in your details below and click
+					 Send Details. Fields marked with an asterisk(*) are required.</p>
+					 
+			<?php }?>
+			
+				<form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "post">
+					<div style = "width:30em;">
+						<label for = "firstName" <?php validateField("firstName",$missingFields)?>>First Name *</label>
+						<
+				}
+			}
+		}

@@ -1,4 +1,4 @@
-<!--one page form validation and verification with thanks giving cards....-->
+<!--one page slam book form -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,10 @@
 
 <body>
 	<?php
-	
+		require_once("form1.php");
+		require_once("form2.php");
+		require_once("form3.php");
+		
 	
 	    function sayThanks(){
 			?>
@@ -26,109 +29,6 @@
 			
 		<?php }
 		
-		function displayForm1($missingFields,$raised){
-			?>
-			
-			<div class = "container">
-				<h2>Slam Book</h2>
-				
-				<form method = "post" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				
-					<input type = "hidden" name = "form1" value = "2">
-					
-				<?php if($missingFields){
-					echo '<p>Please fill the field marked with asterisk *</p>';
-				}else{
-					echo "<p>Enter your data</p>";
-				}
-				?>
-				
-					<label for = "firstName">First Name<span <?php validateField("firstName",$missingFields);?>>*</span></label>
-					<span class = "loud"><?php validateError("firstName",$raised);?></span>
-					
-					<input type = "text" id = "firstName" name = "firstName" class = "modify" value = "<?php setValue("firstName");?>">
-					
-					<label for = "lastName">Last Name<span <?php validateField("lastName",$missingFields);?>>*</span></label>
-					<span class = "loud"><?php validateError("lastName",$raised);?></span>
-					
-					<input type = "text" id = "lastName" name = "lastName" class = "modify" value = "<?php setValue("lastName");?>">
-					
-					
-					<label for = "email">Email<span <?php validateField("email",$missingFields);?>>*</span></label>
-					<span class = "loud"><?php validateError("email",$raised);?></span>
-					<input type = "text" id = "email" name = "email" class = "modify" value = "<?php setValue("email")?>">
-					
-					<label for = "mobileNumber">Mobile Number<span <?php validateField("mobileNumber",$missingFields);?>>*</span></label>
-					<span class = "loud"><?php validateError("mobileNumber",$raised);?></span>
-					<input type = "text" id = "mobileNumber" name = "mobileNumber" class = "modify" value = "<?php setValue("mobileNumber")?>">
-					
-					
-					
-					<label for = "male">Male</label>
-					<input type = "radio" value = "male" name = "gender" id = "male" <?php setChecked("gender","male")?>>
-					
-					<label for = "female">Female</label>
-					<input type = "radio" value = "female" name= "gender" id = "female" <?php setChecked("gender","female")?>>
-					
-					<label for = "special">Special</label>
-					<input type = "radio" value = "special" name = "gender" id = "special" <?php setChecked("gender","special")?>>
-					<br>
-					<input type = "submit" name = "submitButton" value = "Next" class = "button" id = "submitButton">
-					<input type = "button" name = "resetButton" value = "reset" class = "button" id = "resetButton">
-				</form>
-			</div>
-			<?php
-		}
-		
-		function processForm(){
-			$requiredFields = array("firstName","lastName","email","mobileNumber","nickName","singerName","actressName","actorName","favoriteMovie",);
-			
-			$raised = array();
-			
-			$missingFields = array();
-			
-			foreach($requiredFields as $requiredField){
-				if(!isset($_POST[$requiredField]) or !$_POST[$requiredField]){
-					$missingFields[] = $requiredField;
-				}
-					
-				
-			}
-			
-						if(!empty($_POST["firstName"])){
-							if(!preg_match("/^[a-zA-Z ]{1,}$/",$_POST["firstName"])){
-								$raised[] = "firstName";
-							}
-						}
-					 
-			
-						if(!empty($_POST["lastName"])){
-							if(!preg_match("/^[a-zA-Z]{1,}$/",$_POST["lastName"])){
-								$raised[] = "lastName";
-							}	
-						}
-			
-						if(!empty($_POST["email"])){
-							if(!preg_match("/[a-zA-Z0-9.-_]+@[a-zA-Z]+\.+[a-z]{2,5}$/",$_POST["email"])){
-								$raised[] = "email";
-							}
-						}
-			
-						if(!empty($_POST["mobileNumber"])){
-							if(!preg_match("/^[0-9]{10}$/",$_POST["mobileNumber"])){
-								$raised[] = "mobileNumber";
-							}
-						}
-							
-					
-			
-			if($missingFields or $raised){
-				displayForm1($missingFields,$raised);
-			}else{
-				sayThanks();
-			}
-			
-		}
 		
 		function test_input($test){
 			return htmlspecialchars($test);
@@ -140,13 +40,13 @@
 			if(isset($_POST[$fieldName])){
 				$fieldValue = test_input($_POST[$fieldName]);
 				
-				echo $fieldValue;
+				return $fieldValue;
 			}
 		}
 		
 		function setChecked($fieldName,$fieldValue){
 			if(isset($_POST[$fieldName]) and $_POST[$fieldName]==$fieldValue){
-				echo 'checked = "checked"';
+				return 'checked = "checked"';
 			}
 		}
 		
@@ -171,88 +71,65 @@
 				case "firstName":
 					return "Not look like a name";
 					
-				case "lastName":
-					return "Not look like a surname";
+				case "nickName":
+					return "Not look like a nick name";
 					
 				case "email":
 					return "Not a valid email Id";
 					
 				case "mobileNumber":
 					return "Not a valid mobileNumber";
+					
+				case "nickName":
+					return "Not look like a nick name";
+					
 			}	
 			
 		}
 		
-		function displayForm2($missingFields,$raised){
-			?>
-		<div class = "container">
-				<h2>Slam Book</h2>
-				
-				<form method = "post" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				
-				<?php if($missingFields){
-					echo '<p>Please fill the field marked with asterisk *</p>';
-				}else{
-					echo "<p>Let me know what you like...</p>";
-				}
-				?>
-				
-					<label for = "nickName">Nick Name</label>
-					<span class = "loud"><?php validateError("nickName",$raised);?></span>
-					
-					<input type = "text" id = "nickName" name = "nickName" class = "modify" value = "<?php setValue("nickName");?>">
-					
-					<label for = "singerName">Favorite Singer</label>
-					<span class = "loud"><?php validateError("singerName",$raised);?></span>
-					
-					<input type = "singerName" id = "singerName" name = "singerName" class = "modify" value = "<?php setValue("singerName");?>">
-					
-					
-					<label for = "actressName">Favorite Actress</label>
-					<span class = "loud"><?php validateError("actressName",$raised);?></span>
-					<input type = "text" id = "actressName" name = "actressName" class = "modify" value = "<?php setValue("actressName")?>">
-					
-					<label for = "actorName">Favorite Actor</label>
-					<span class = "loud"><?php validateError("actorName",$raised);?></span>
-					<input type = "text" id = "actorName" name = "actorName" class = "modify" value = "<?php setValue("actorName")?>">
-					
-					
-					
-					<label for = "favoriteSong">Favorite Song</label>
-					<input type = "text" value = "<?php setValue("favoriteSong")?>" name = "favoriteSong" class = "modify"  id = "favoriteSong">
-					
-					<label for = "favoriteMovie">Favorite Movie</label>
-					<input type = "text" value = "<?php setValue("favoriteMovie");?>" name= "favoriteMovie" class = "modify"  id = "favoriteMovie">
-					
-					<label for = "TVshow">Favorite TV show</label>
-					<input type = "text" value = "<?php setValue("TVshow"); ?>" name = "TVshow" id = "TVshow" class = "modify">
-					<br>
-					<input type = "button" name = "prevButton" value = "prev" class = "button" id = "prevButton">
-					<input type = "reset" name = "resetButton" value = "reset" class = "button" id = "resetButton">
-					
-					<input type = "button" name = "nextButton" value = "next" class = "button" id = "nextButton" style = "float:right;clear:both;">
-				</form>
-			</div>
-			<?php
-		}
 		
-		if($_SERVER["REQUEST_METHOD"]=="POST"){
-			processForm();
+		
+		
+		if($_SERVER["REQUEST_METHOD"]=="POST" and $_POST["state"]>=1 and $_POST["state"]<=3 ){	
+			call_user_func("processStep".(int)$_POST["state"]);
 			
 		}else{
 			displayForm1();
 		}
 		
 		
+		//step by step form switch chode....
 		
 		
+		
+		function processStep1(){
+			
+			if(isset($_POST["submitButton"]) and $_POST["submitButton"]=="next >"){
+				processForm1();
+			}
+		}
+		
+		function processStep2(){
+			if(isset($_POST["submitButton"]) and $_POST["submitButton"]=="next >"){
+				displayForm3();
+			}else
+				displayForm1($missingFields,$raised);
+		}
+		
+		function processStep3(){
+			if(isset($_POST["submitButton"]) and $_POST["submitButton"] == "next >"){
+			    sayThanks();
+			}else{
+				displayForm2();
+			}
+		}
 		
 	?>
 	
 	<script>
 		function emptyData(){
 			document.getElementById("firstName").value = "";
-			document.getElementById("lastName").value = "";
+			document.getElementById("nickName").value = "";
 			document.getElementById("email").value = "";
 			document.getElementById("mobileNumber").value = "";
 			document.getElementById("male").checked = "";

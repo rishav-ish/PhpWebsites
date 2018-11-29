@@ -89,6 +89,18 @@ p{
   font-weight: bold;
 }
 
+textarea{
+  display:block;
+  height: 100px;
+  width: 50%;
+  margin: 20px;
+  border-style:solid;
+  font-size: 18px;
+  padding: 4px;
+  font-family: cursive;
+}
+
+
 
 @media screen and (max-width:600px){
   .container{
@@ -107,5 +119,12 @@ p{
   
   .modify{
 	  font-size:20px;
+  }
+  
+  textarea{
+    width: 90%;
+    margin: 10px;
+    resize: none;
+  
   }
 }
