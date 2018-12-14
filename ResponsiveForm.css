@@ -97,6 +97,7 @@ textarea{
   border-style:solid;
   font-size: 18px;
   padding: 4px;
+  padding-right: 0px;
   font-family: cursive;
 }
 

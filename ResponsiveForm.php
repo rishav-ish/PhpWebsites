@@ -1,4 +1,12 @@
 <!--one page slam book form -->
+<?php
+    session_start();
+	
+	
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +31,7 @@
 			?>
 			
 			<div class = "sayThanks">
-				Hello <span style = "color:red"><?php echo $_POST["firstName"];?></span>, you have completed your login, your credential information
+				Hello <span style = "color:red"><?php echo $_SESSION["firstName"];?></span>, you have completed your login, your credential information
 				will be send to your mail shortly
 			</div>
 			
@@ -37,8 +45,8 @@
 		
 		
 		function setValue($fieldName){
-			if(isset($_POST[$fieldName])){
-				$fieldValue = test_input($_POST[$fieldName]);
+			if(!empty($_POST[$fieldName])){
+				$fieldValue = test_input($_POST[$fieldName]) ;
 				
 				return $fieldValue;
 			}
@@ -119,6 +127,8 @@
 		function processStep3(){
 			if(isset($_POST["submitButton"]) and $_POST["submitButton"] == "next >"){
 			    sayThanks();
+				session_unset();
+				session_destroy();
 			}else{
 				displayForm2();
 			}
@@ -126,7 +136,8 @@
 		
 	?>
 	
-	<script>
+	
+        <script>
 		function emptyData(){
 			document.getElementById("firstName").value = "";
 			document.getElementById("nickName").value = "";
@@ -143,6 +154,7 @@
 		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("loud"); var i; for(i=0;i<el.length;i++){ el[i].style.display = "none"; } });
 		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("error"); var i = 0; for(i=0;el.length;i++){ el[i].style.color = "purple"; } });
 	</script>
+	
 	
 </body>
 </html>

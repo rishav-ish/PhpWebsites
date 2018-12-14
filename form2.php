@@ -1,4 +1,25 @@
 <?php 
+	if(!empty($_POST["singerName"]))
+		$_SESSION["singerName"] = test_input($_POST["singerName"]);
+	
+	if(!empty($_POST["actressName"]))
+		$_SESSION["actressName"] = test_input($_POST["actressName"]);
+	
+	if(!empty($_POST["actorName"]))
+		$_SESSION["actorName"] = test_input($_POST["actorName"]);
+	
+	if(!empty($_POST["favoriteSong"]))
+		$_SESSION["favoriteSong"] = test_input($_POST["favoriteSong"]);
+	
+	if(!empty($_POST["favoriteMovie"]))
+		$_SESSION["favoriteMovie"] = test_input($_POST["favoriteMovie"]);
+	
+	if(!empty($_POST["TVshow"]))
+		$_SESSION["TVshow"] = test_input($_POST["TVshow"]);
+	
+	
+
+
 function displayForm2($raised){
 			?>
 		<div class = "container">
@@ -19,32 +40,32 @@ function displayForm2($raised){
 					<label for = "singerName">Favorite Singer</label>
 					<span class = "loud"><?php validateError("singerName",$raised);?></span>
 					
-					<input type = "singerName" id = "singerName" name = "singerName" class = "modify" value = "<?php setValue("singerName");?>">
+					<input type = "singerName" id = "singerName" name = "singerName" class = "modify" value = "<?php echo $_SESSION["singerName"]; ?>">
 					
 					
 					<label for = "actressName">Favorite Actress</label>
 					<span class = "loud"><?php validateError("actressName",$raised);?></span>
-					<input type = "text" id = "actressName" name = "actressName" class = "modify" value = "<?php setValue("actressName")?>">
+					<input type = "text" id = "actressName" name = "actressName" class = "modify" value = "<?php echo $_SESSION["actressName"]; ?>">
 					
 					<label for = "actorName">Favorite Actor</label>
 					<span class = "loud"><?php validateError("actorName",$raised);?></span>
-					<input type = "text" id = "actorName" name = "actorName" class = "modify" value = "<?php setValue("actorName")?>">
+					<input type = "text" id = "actorName" name = "actorName" class = "modify" value = "<?php echo $_SESSION["actorName"]; ?>">
 					
 					
 					
 					<label for = "favoriteSong">Favorite Song</label>
 					<span class = "loud"><?php validateError("favoriteSong",$raised);?></span>
-					<input type = "text" value = "<?php setValue("favoriteSong")?>" name = "favoriteSong" class = "modify"  id = "favoriteSong">
+					<input type = "text" value = "<?php echo $_SESSION["favoriteSong"]; ?>" name = "favoriteSong" class = "modify"  id = "favoriteSong">
 					
 					<label for = "favoriteMovie">Favorite Movie</label>
 					<span class = "loud"><?php validateError("favoriteMovie",$raised);?></span>
-					<input type = "text" value = "<?php setValue("favoriteMovie");?>" name= "favoriteMovie" class = "modify"  id = "favoriteMovie">
+					<input type = "text" value = "<?php echo $_SESSION["favoriteMovie"]; ?>" name= "favoriteMovie" class = "modify"  id = "favoriteMovie">
 					
 					<label for = "TVshow">Favorite TV show</label>
 					<span class = "loud"><?php validateError("TVshow",$raised);?></span>
-					<input type = "text" value = "<?php setValue("TVshow"); ?>" name = "TVshow" id = "TVshow" class = "modify">
+					<input type = "text" value = "<?php echo $_SESSION["TVshow"]; ?>" name = "TVshow" id = "TVshow" class = "modify">
 					<br>
-					<!--<input type = "submit" name = "submitButton" value = "&lt prev" class = "button" id = "prevButton">-->
+					<input type = "submit" name = "submitButton" value = "&lt prev" class = "button" id = "prevButton">
 					<input type = "reset" name = "resetButton" value = "reset" class = "button" id = "resetButton">
 					
 					<input type = "submit" name = "submitButton" value = "next &gt" class = "button" id = "nextButton" style = "float:right;clear:both;">

@@ -1,5 +1,16 @@
-<?php 
+<?php
 
+    if(!empty($_POST["firstName"]))
+		$_SESSION["firstName"] = test_input($_POST["firstName"]);
+	
+	if(!empty($_POST["nickName"]))
+		$_SESSION["nickName"] = test_input($_POST["nickName"]);
+	
+	if(!empty($_POST["email"]))
+		$_SESSION["email"] = test_input($_POST["email"]);
+	
+	if(!empty($_POST["mobileNumber"]))
+		$_SESSION["mobileNumber"] = test_input($_POST["mobileNumber"]);
 	
 	
 
@@ -23,24 +34,24 @@ function displayForm1($missingFields,$raised){
 				}
 				?>
 				
-					<label for = "firstName">First Name<span <?php validateField("firstName",$missingFields);?>>*</span></label>
+					<label for = "firstName">Name<span <?php validateField("firstName",$missingFields);?>>*</span></label>
 					<span class = "loud"><?php validateError("firstName",$raised);?></span>
 					
-					<input type = "text" id = "firstName" name = "firstName" class = "modify" value = "<?php echo  setValue("firstName");?>">
+					<input type = "text" id = "firstName" name = "firstName" class = "modify" value = "<?php echo  $_SESSION["firstName"];?>">
 					
 					<label for = "nickName">Nick Name<span <?php validateField("nickName",$missingFields);?>>*</span></label>
 					<span class = "loud"><?php validateError("nickName",$raised);?></span>
 					
-					<input type = "text" id = "nickName" name = "nickName" class = "modify" value = "<?php echo setValue("nickName");?>">
+					<input type = "text" id = "nickName" name = "nickName" class = "modify" value = "<?php echo $_SESSION["nickName"];?>">
 					
 					
 					<label for = "email">Email<span <?php validateField("email",$missingFields);?>>*</span></label>
 					<span class = "loud"><?php validateError("email",$raised);?></span>
-					<input type = "text" id = "email" name = "email" class = "modify" value = "<?php echo setValue("email");?>">
+					<input type = "text" id = "email" name = "email" class = "modify" value = "<?php echo $_SESSION["email"];?>">
 					
 					<label for = "mobileNumber">Mobile Number<span <?php validateField("mobileNumber",$missingFields);?>>*</span></label>
 					<span class = "loud"><?php validateError("mobileNumber",$raised);?></span>
-					<input type = "text" id = "mobileNumber" name = "mobileNumber" class = "modify" value = "<?php echo setValue("mobileNumber");?>">
+					<input type = "text" id = "mobileNumber" name = "mobileNumber" class = "modify" value = "<?php echo $_SESSION["mobileNumber"];?>">
 					
 					
 					
@@ -117,3 +128,22 @@ function processForm1(){
 		
 		
 ?>		
+
+
+        <script>
+		function emptyData(){
+			document.getElementById("firstName").value = "";
+			document.getElementById("nickName").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("mobileNumber").value = "";
+			document.getElementById("male").checked = "";
+			document.getElementById("female").checked = "";
+			document.getElementById("special").checked = "";
+		
+			
+			}
+		
+		document.getElementById("resetButton").addEventListener("click",emptyData);
+		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("loud"); var i; for(i=0;i<el.length;i++){ el[i].style.display = "none"; } });
+		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("error"); var i = 0; for(i=0;el.length;i++){ el[i].style.color = "purple"; } });
+	</script>
