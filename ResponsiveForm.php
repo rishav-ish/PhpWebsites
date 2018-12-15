@@ -79,8 +79,8 @@
 				case "firstName":
 					return "Not look like a name";
 					
-				case "nickName":
-					return "Not look like a nick name";
+				/*case "nickName":
+					return "Not look like a nick name";*/
 					
 				case "email":
 					return "Not a valid email Id";
@@ -137,7 +137,7 @@
 	?>
 	
 	
-        <script>
+    <script>
 		function emptyData(){
 			document.getElementById("firstName").value = "";
 			document.getElementById("nickName").value = "";
@@ -153,7 +153,8 @@
 		document.getElementById("resetButton").addEventListener("click",emptyData);
 		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("loud"); var i; for(i=0;i<el.length;i++){ el[i].style.display = "none"; } });
 		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("error"); var i = 0; for(i=0;el.length;i++){ el[i].style.color = "purple"; } });
-	</script>
+		document.getElementById("resetButton").addEventListener("click",function(){var el = document.getElementsByClassName("remove");var i = 0; for(i=0;el.length;i++){el[i].value = "";} });
+	</script>  
 	
 	
 </body>

@@ -68,12 +68,12 @@ function displayForm3(){
 					
 					<label for = "friendFantasy">You want to become</label>
 					<span class = "loud"><?php validateError("friendFantasy",$raised)?></span>
-					<input type = "text" value = "<?php echo $_SESSION["friendFantasy"]; ?>" name = "friendFantasy" class = "modify"  id = "friendFantasy">
+					<input type = "text" value = "<?php echo $_SESSION["friendFantasy"]; ?>" name = "friendFantasy" class = "modify remove"  id = "friendFantasy">
 					
 					
 					<br>
 					<input type = "submit" name = "submitButton" value = "&lt; prev" class = "button" id = "submitButton">
-					<input type = "reset" name = "resetButton" value = "reset" class = "button" id = "resetButton">
+					<input type = "button" name = "resetButton" value = "reset" class = "button" id = "resetButton">
 					
 					<input type = "submit" name = "submitButton" value = "next &gt;" class = "button" id = "submitButton" style = "float:right;clear:both;">
 				</form>

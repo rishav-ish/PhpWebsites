@@ -12,6 +12,18 @@
 	if(!empty($_POST["mobileNumber"]))
 		$_SESSION["mobileNumber"] = test_input($_POST["mobileNumber"]);
 	
+	if(!empty($_POST["gender"])){
+		
+		if($_POST["gender"]=="male")
+			$_SESSION["male"] = 'checked = "checked"';
+		
+		else if($_POST["gender"]=="female")
+			$_SESSION["female"] = 'checked = "checked"';
+		
+		else
+			$_SESSION["special"] = 'checked = "checked"';
+	}
+	
 	
 
 function displayForm1($missingFields,$raised){
@@ -56,13 +68,13 @@ function displayForm1($missingFields,$raised){
 					
 					
 					<label for = "male">Male</label>
-					<input type = "radio" value = "male" name = "gender" id = "male" <?php echo setChecked("gender","male");?>>
+					<input type = "radio" value = "male" name = "gender" id = "male" <?php echo $_SESSION["male"]; ?>>
 					
 					<label for = "female">Female</label>
-					<input type = "radio" value = "female" name= "gender" id = "female" <?php echo setChecked("gender","female");?>>
+					<input type = "radio" value = "female" name= "gender" id = "female" <?php echo $_SESSION["female"]; ?>>
 					
 					<label for = "special">Special</label>
-					<input type = "radio" value = "special" name = "gender" id = "special" <?php echo setChecked("gender","special");?>>
+					<input type = "radio" value = "special" name = "gender" id = "special" <?php echo $_SESSION["special"]; ?>>
 					<br>
 					<input type = "submit" name = "submitButton" value = "next &gt;" class = "button" id = "submitButton">
 					<input type = "button" name = "resetButton" value = "reset" class = "button" id = "resetButton">
@@ -97,11 +109,11 @@ function processForm1(){
 						}
 					 
 			
-						if(!empty($_POST["nickName"])){
+						/*if(!empty($_POST["nickName"])){
 							if(!preg_match("/^[a-zA-Z, ]{1,}$/",$_POST["nickName"])){
 								$raised[] = "nickName";
 							}	
-						}
+						}*/
 			
 						if(!empty($_POST["email"])){
 							if(!preg_match("/[a-zA-Z0-9.-_]+@[a-zA-Z]+\.+[a-z]{2,5}$/",$_POST["email"])){
@@ -128,22 +140,3 @@ function processForm1(){
 		
 		
 ?>		
-
-
-        <script>
-		function emptyData(){
-			document.getElementById("firstName").value = "";
-			document.getElementById("nickName").value = "";
-			document.getElementById("email").value = "";
-			document.getElementById("mobileNumber").value = "";
-			document.getElementById("male").checked = "";
-			document.getElementById("female").checked = "";
-			document.getElementById("special").checked = "";
-		
-			
-			}
-		
-		document.getElementById("resetButton").addEventListener("click",emptyData);
-		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("loud"); var i; for(i=0;i<el.length;i++){ el[i].style.display = "none"; } });
-		document.getElementById("resetButton").addEventListener("click",function(){ var el = document.getElementsByClassName("error"); var i = 0; for(i=0;el.length;i++){ el[i].style.color = "purple"; } });
-	</script>
