@@ -19,6 +19,14 @@
 			
 		<h2>String Doctor</h2>
 		
+		<ul class = "navbar">
+			<li class = "active"><a href = "#">Home</a></li>
+			<li><a>Profile</a></li>
+			<li><a>Activity</a></li>
+			<li><a>File</a></li>
+			<li><a href = "StringOperationLogout.php">logout</a></li>
+		</ul>
+		
 		<form method = "post" action = "<?php htmlspecialchars($_SERVR["PHP_SELF"]); ?>">
 			
 			<textarea placeholder = "write something here" id = "text">
@@ -61,11 +69,7 @@
 			}else{
 				session_unset();
 				session_destroy();
-				header("Location:SlamBookSignIn.php");
-				
-				//displayPage();
-				
-				//echo "<h2>".$_SESSION["username"]."</h2>";
+				header("Location:SlamBookLogin.php");
 			}
 		?>
 		
@@ -79,7 +83,7 @@
   var n = d.search(s);
   
   if(n>=0){
-    	var t = s + " first appears at the index position " + n;
+    	var t =  s + " first appears at the index position " + n;
       document.getElementById("view").textContent = t;
       document.getElementById("view").style.display = "inline-block";
   }else{
@@ -90,7 +94,11 @@
 });
 
 	document.getElementById("clear").addEventListener("click",function(){ document.getElementById("text").value = ""; });
-		
+	document.getElementById("replace_all").addEventListener("click",function(){ var el = document.getElementById("text"); var r = prompt("What you want to replace"); var a = prompt("With what you want to replace");  el.value =  el.value.replace(new RegExp(r,'g'),a); });
+	document.getElementById("replace_insensitive").addEventListener("click",function(){ var el = document.getElementById("text"); var r = prompt("What you want to replace"); var a = prompt("What you want to replace with"); el.value = el.value.replace(new RegExp(r,'i'),a); });
+	document.getElementById("replace_all_insensitive").addEventListener("click",function(){ var el = document.getElementById("text"); var r = prompt("What you want to replace"); var a = prompt("What you want to replace with"); el.value = el.value.replace(new RegExp(r,'gi'),a); });
+	document.getElementById("index").addEventListener("click",function(){ var el = document.getElementById("text").value; var find = prompt("Please provide the vaue "); var n = el.indexOf(find); if(n>=0){ document.getElementById("view").textContent = find + " is at position " + n; document.getElementById("view").style.display = "inline-block"; }else{ document.getElementById("view").textContent = find + " doesn't exist in text"; document.getElementById("view").style.display = "inline-block"; } });
+	
 		</script>
 	</body>
 </html>
