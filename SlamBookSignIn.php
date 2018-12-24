@@ -1,4 +1,8 @@
 <?php
+
+	//the substring and slice works the same the difference is that substring don't take negative arguments.
+	
+	session_start();
 	include "DataBaseConnect.php";
 	
 ?>
@@ -185,20 +189,23 @@
 				
 				if($result->num_rows == 1){
 					displaySignIn(NULL,NULL,"User already exists");
+					$conn->close();
 				}else{
 					$conn->query($sql);
 					$conn->close();
-					displayWelcome();
+					$_SESSION["username"] = $_POST["username"];
+					//session_write_close();
+					header("Location:StringOperation.php");
 				}
-				$conn->close();
+				//$conn->close();
 				
 				//displayWelcome();
 			}
 		}
 		
-		function displayWelcome(){
+		/*function displayWelcome(){
 			echo "<h2>Welcome ".$_POST["username"]." How are you...!</h2>";
-		}
+		}*/
 		
 		function test_input($test){
 			return htmlspecialchars($test);

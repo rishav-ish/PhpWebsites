@@ -1,7 +1,9 @@
 <?php
+
+	session_start();
 	include "DataBaseConnect.php";
 	
-	//session_start();
+
 	
 	
 ?>
@@ -83,7 +85,9 @@
 			
 			
 			function login(){
-				echo "<h2>Welcome ".$_POST["username"]." How are you</h2>";
+				$_SESSION["username"] = $_POST["username"];
+				//session_write_close();
+				header("Location:StringOperation.php");
 			}
 			
 			
