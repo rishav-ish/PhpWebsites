@@ -1,19 +1,22 @@
 <?php 
 	session_start();
+	
+	include "DataBaseConnect.php";
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>String operations</title>
-	<meta name = "viewport" content = "width=device-width,initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei" rel="stylesheet"> 
 	<link rel = "stylesheet" type = "text/css" href = "StringOperation.css">
+	<meta name = "viewport" content = "width=device-width,initial-scale=1.0">
 </head>
 
 <body>
 	<?php
 		
-		function displayPage(){
+		function displayPage($firstname){
 		
 		?>		
 			
@@ -21,10 +24,15 @@
 		
 		<ul class = "navbar">
 			<li class = "active"><a href = "#">Home</a></li>
-			<li><a>Profile</a></li>
+			<li><a href = "StringOperationProfile.php">Profile</a></li>
 			<li><a>Activity</a></li>
 			<li><a>File</a></li>
 			<li><a href = "StringOperationLogout.php">logout</a></li>
+			<?php	
+			    if($firstname){
+				  echo '<li id = "name">'."Welcome ".$firstname.'</li>';
+				}
+			?>		
 		</ul>
 		
 		<form method = "post" action = "<?php htmlspecialchars($_SERVR["PHP_SELF"]); ?>">
@@ -64,7 +72,20 @@
 		
 		<?php
 			if(isset($_SESSION["username"])){
-				displayPage();
+				
+				$username = $_SESSION["username"];
+				
+				$sql = "SELECT * FROM login WHERE username= '$username'";
+				
+				$result = $conn->query($sql);
+				
+				$conn->close();
+				
+				$row = $result->fetch_assoc();
+				
+				$firstname = $row['firstname'];
+				
+				displayPage($firstname);
 				
 			}else{
 				session_unset();
@@ -98,7 +119,8 @@
 	document.getElementById("replace_insensitive").addEventListener("click",function(){ var el = document.getElementById("text"); var r = prompt("What you want to replace"); var a = prompt("What you want to replace with"); el.value = el.value.replace(new RegExp(r,'i'),a); });
 	document.getElementById("replace_all_insensitive").addEventListener("click",function(){ var el = document.getElementById("text"); var r = prompt("What you want to replace"); var a = prompt("What you want to replace with"); el.value = el.value.replace(new RegExp(r,'gi'),a); });
 	document.getElementById("index").addEventListener("click",function(){ var el = document.getElementById("text").value; var find = prompt("Please provide the vaue "); var n = el.indexOf(find); if(n>=0){ document.getElementById("view").textContent = find + " is at position " + n; document.getElementById("view").style.display = "inline-block"; }else{ document.getElementById("view").textContent = find + " doesn't exist in text"; document.getElementById("view").style.display = "inline-block"; } });
-	
+	document.getElementById("replace").addEventListener("click",function(){ var el = document.getElementById("text"); var r = prompt("What you want to replace"); var a = prompt("With what you want to replace");  el.value =  el.value.replace(r,a); });
+
 		</script>
 	</body>
 </html>

@@ -4,18 +4,19 @@
 }
 
 h2{
-  position: sticky;
-  top: 0;
+ 
   //border-bottom: 2px solid red;
   text-align: center;
   padding:2vw;
   color: red;
+  font-family: 'ZCOOL XiaoWei', serif;
   
 }
 
 ul{
   padding:0px;
-  padding-left: 10px;;
+  padding-left: 10px;
+  z-index:50;
 }
 
 li{
@@ -54,6 +55,7 @@ textarea{
   font-style: justify;
   font-family: arial;;
   font-size: 20px;
+  resize: none;
 }
 
 
@@ -64,7 +66,7 @@ button{
   margin: 10px;
   padding: 5px;
   border-radius: 5px;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 button:hover{
@@ -74,7 +76,7 @@ button:hover{
 }
 
 .btn{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   border: 1px solid black;
@@ -93,4 +95,26 @@ button:hover{
   font-family: arial;
   background-color: rgba(150,150,150,0.5);
   border-radius: 0px 100px 10px 0px;
+}
+
+#name{
+  float: right;
+  margin-right: 5px;
+  font-size: 14px;
+  color: green;
+  border-bottom: none;
+  cursor: context-menu;
+}
+
+@media screen and (max-width:950px){
+  .btn{
+    position: static;
+    box-shadow: none;
+    border-radius: 0px;
+    
+  }
+  
+  #view{
+    border-radius: 0px;
+  }
 }

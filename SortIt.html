@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sort It</title>
+	<meta name = "viewport" content = "width=device-width,initial-scale=1.0">
+	<style type = "text/css">
+	
+
+	
+		#header{
+  text-align: center;
+  border: 1px solid black;
+  padding: 40px 0px;
+  font-size: 22px;
+  background-color:grey;
+  font-weight:bold;
+}
+
+
+input{
+  display: block;
+  width: 90%;
+  font-size: 20px;
+  padding: 10px;
+  margin: 10px;
+  
+}
+
+button{
+  border: none;
+  border:1px solid black;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+button:hover{
+  box-shadow: 0px 0px 5px black;
+}
+	
+
+#result{
+  display: none;
+  border: 1px solid black;
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+  overflow-x:auto;
+}
+	
+	</style>
+</head>
+
+<body>
+	<div id = "header">
+				Let's do some sorting
+	</div>
+	
+	<input type = "text" id = "garbage" placeholder = "Enter values with commas in between">
+	
+	<button id = "alphabeticalSort">Alphabetical Sort</button>
+	<button id = "numericalSort">Numerical Sort</button>
+	<button id = "descending_as">Desc. Alphabetical Sort</button>
+	<button id = "descending_ns">Desc. Numerical Sort</button>
+	<button id = "random_sort">Random Sort</button>
+	<button id = "clear">Clear</button>
+	<div id = "result">
+	
+	</div>
+	
+	<script>
+	document.getElementById("clear").addEventListener("click",function(){
+  var el = document.getElementById("garbage");
+  var el2 = document.getElementById("result");
+  el.value = "";
+  el2.textContent = "";
+  el2.style.display = "none";
+});
+	document.getElementById("alphabeticalSort").addEventListener("click",function(){ var el = document.getElementById("garbage").value; var a = el.split(","); a.sort(); document.getElementById("result").textContent = a.join(" ");document.getElementById("result").style.display = "block"; });
+	document.getElementById("descending_as").addEventListener("click",function(){ var el = document.getElementById("garbage").value; var a = el.split(","); a.sort().reverse(); document.getElementById("result").textContent = a.join(" ");document.getElementById("result").style.display = "block"; });
+	document.getElementById("numericalSort").addEventListener("click",function(){ var el = document.getElementById("garbage").value; var a = el.split(","); a.sort(function(a,b){return a-b;}); document.getElementById("result").textContent = a.join(" ");document.getElementById("result").style.display = "block";});
+	document.getElementById("descending_ns").addEventListener("click",function(){ var el = document.getElementById("garbage").value; var a = el.split(","); a.sort(function(a,b){return b-a;}); document.getElementById("result").textContent = a.join(" ");document.getElementById("result").style.display = "block"; });
+	document.getElementById("random_sort").addEventListener("click",function(){ var el = document.getElementById("garbage").value; var a = el.split(","); a.sort(function(a,b){return 0.4-Math.random();}); document.getElementById("result").textContent = a.join(" ");document.getElementById("result").style.display = "block"; });
+
+	</script>
+	
+	
+</body>
+</html>

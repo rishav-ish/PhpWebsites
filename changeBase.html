@@ -1,0 +1,25 @@
+<!-- The splice method returns an array of deleted items -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name = "viewport" content = "width=device-width,initial-scale=1.0">
+	
+</head>
+
+<body>
+	<div class = "container">
+		<input type = "text" id = "num" value = "" placeholder="Enter Number">
+		<input type = "text" id = "base" value = "" placeholder = "Enter Base">
+		<input type = "text" id = "result" placeholder = "result" disabled>
+		<button id = "compute">compute</button>
+		
+	</div>
+	<script>
+		document.getElementById("compute").addEventListener("click",function(){ var n = document.getElementById("num").value; var b = document.getElementById("base").value; var r = document.getElementById("result"); r.value = parseInt(n).toString(parseInt(b)); });
+	</script>
+
+</body>
+
+</html>
+	
